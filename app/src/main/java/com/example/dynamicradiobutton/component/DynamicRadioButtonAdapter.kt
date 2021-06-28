@@ -11,7 +11,7 @@ class DynamicRadioButtonAdapter(
     private val onItemSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<DynamicRadioButtonAdapter.BaseViewHolder<*>>() {
 
-    var selectedItem = -1
+    var selectedItem = INVALID_POSITION
         private set
 
     private val options: MutableList<String> = mutableListOf()
@@ -52,7 +52,8 @@ class DynamicRadioButtonAdapter(
         )
     }
 
-    inner class RadioButtonViewHolder(itemView: View) : DynamicRadioButtonAdapter.BaseViewHolder<Any?>(itemView) {
+    inner class RadioButtonViewHolder(itemView: View) :
+        DynamicRadioButtonAdapter.BaseViewHolder<Any?>(itemView) {
         override fun bind(
             radioDescription: String,
             position: Int
@@ -76,7 +77,7 @@ class DynamicRadioButtonAdapter(
         selectedItem = position
 
         if (position > 0) {
-            notifyItemRangeChanged(0, position)
+            notifyItemRangeChanged(FIRST_POSITION, position)
         }
         if (position < options.size) {
             notifyItemRangeChanged(position + OFFSET_POSITION, options.size - position)
@@ -84,6 +85,8 @@ class DynamicRadioButtonAdapter(
     }
 
     companion object {
-        const val OFFSET_POSITION = 1
+        private const val OFFSET_POSITION = 1
+        private const val FIRST_POSITION = 0
+        private const val INVALID_POSITION = -1
     }
 }

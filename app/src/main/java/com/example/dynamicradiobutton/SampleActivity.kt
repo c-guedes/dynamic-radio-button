@@ -31,7 +31,7 @@ class SampleActivity : AppCompatActivity() {
     }
 
     private fun toggleButtonState(onItemSelected: Int) {
-        if (onItemSelected != -1) selectButton.isEnabled = true
+        if (onItemSelected != INVALID_POSITION) selectButton.isEnabled = true
     }
 
     private fun setupClickListener() {
@@ -40,5 +40,9 @@ class SampleActivity : AppCompatActivity() {
             Snackbar.make(it, "Selected option position $optionSelected", Snackbar.LENGTH_LONG)
                 .show()
         }
+    }
+
+    companion object {
+        private const val INVALID_POSITION = -1
     }
 }
